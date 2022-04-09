@@ -16,8 +16,6 @@ This repository contains commands you can use in the AWS CLI.
       * [List Keys](#list-keys)
       * [List the Access Key IDs for an IAM User](#list-the-access-key-ids-for-an-iam-user)
       * [List the SSH Public Keys for a User](#list-the-ssh-public-keys-for-a-user)
-   * [ElasticBeanstalk](#ElasticBeanstalk)
-      * [Describe environments for used list AMI1](#describe-environments-for-used-list-AMI1)
    * [Volumes](#volumes)
       * [Describing volumes](#describing-volumes)
       * [Describing volumes using a different aws user profile](#describing-volumes-using-a-different-aws-user-profile)
@@ -31,6 +29,7 @@ This repository contains commands you can use in the AWS CLI.
       * [Listing AMI(s)](#listing-amis)
       * [Describing AMI(s)](#describing-amis)
       * [Listing Amazon AMIs](#listing-amazon-amis)
+      * [Describing EB environments for used list AMI1](#describing-eb-environments-for-used-list-AMI1)
       * [Using Filters](#using-filters)
    * [Lambda](#lambda)
       * [List Functions](#list-functions)
@@ -174,12 +173,6 @@ aws iam list-ssh-public-keys --user-name <user_name>
 
 
 
-# ElasticBeanstalk
-
-## Describe environments for used list AMI1
-```
-aws elasticbeanstalk describe-environments --region us-east-1 --query 'Environments[?PlatformArn.contains(@,`64bit Amazon Linux/`)].[ApplicationName,EnvironmentName,SolutionStackName]' --output table
-```
 
 # Volumes
 
@@ -335,6 +328,11 @@ aws ec2 describe-images --owners amazon
 ```
 
 
+## Describing EB environments for used list AMI1
+```
+aws elasticbeanstalk describe-environments --region us-east-1 --query 'Environments[?PlatformArn.contains(@,`64bit Amazon Linux/`)].[ApplicationName,EnvironmentName,SolutionStackName]' --output table
+```
+
 
 ## Using Filters
 
@@ -343,6 +341,7 @@ e.g: Describing Windows AMIs that are backed by Amazon EBS.
 ```
 aws ec2 describe-images --filters "Name=platform,Values=windows" "Name=root-device-type,Values=ebs"
 ```
+
 
 e.g: Describing Ubuntu AMIs 
 
